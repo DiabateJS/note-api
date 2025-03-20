@@ -1,57 +1,73 @@
 <?php
 class Util {
-    public static function createUserFromStringParams($params){
-        $tabParams = explode(";",$params);
-        $nom = $tabParams[0];
-        $prenom = $tabParams[1];
-        $email = $tabParams[2];
-        $login = $tabParams[3];
-        $password = $tabParams[4];
-        $idprofil = $tabParams[5];
-        $user = new User(null, $nom, $prenom, $email, $login, $password, $idprofil);
-        return $user;
-    }
 
-    public static function createDicoFromStringParams($params){
+    public static function createNoteDicoFromStringParams($params){
         $tabParams = explode(";",$params);
-        $nom = $tabParams[0];
-        $prenom = $tabParams[1];
-        $email = $tabParams[2];
-        $login = $tabParams[3];
-        $password = $tabParams[4];
-        $idprofil = $tabParams[5];
-
-        $data = [
-            "nom" => $nom,
-            "prenom" => $prenom,
-            "email" => $email,
-            "login" => $login,
-            "password" => $password,
-            "idprofil" => $idprofil
-        ];
+        $data = [];
+        if (count($tabParams) > 2){
+            $titre = $tabParams[0];
+            $contenu = $tabParams[1];
+            $idCategorie = $tabParams[2];
+            $data = [
+                "titre" => $titre,
+                "contenu" => $contenu,
+                "idCategorie" => $idCategorie
+            ];
+        }
         return $data;
     }
 
-    public static function createArticleDicoFromStringParams($params){
-        $tabParams = explode(";",$params);
-        $articleDico = [
-            "label" => $tabParams[0],
-            "description" => $tabParams[1],
-            "image" => $tabParams[2],
-            "prix" => $tabParams[3]
-        ];
-        return $articleDico;
+    public static function createNoteDicoFromTabParams($tabParams){
+        $data = [];
+        if (count($tabParams) > 2){
+            $titre = $tabParams[0];
+            $contenu = $tabParams[1];
+            $idCategorie = $tabParams[2];
+            $data = [
+                "titre" => $titre,
+                "contenu" => $contenu,
+                "idCategorie" => $idCategorie
+            ];
+        }
+        return $data;
     }
 
-    public static function userEntityToDico($user){
+    public static function createCategorieDicoFromStringParams($params){
+        $tabParams = explode(";",$params);
+        $categorieDico = [
+            "libelle" => $tabParams[0],
+            "couleur" => $tabParams[1]
+        ];
+        return $categorieDico;
+    }
+
+    public static function createCategorieDicoFromTabParams($tab){
+        $categorieDico = [];
+        if (count($tab) > 1){
+            $categorieDico = [
+                "libelle" => $tab[0],
+                "couleur" => $tab[1]
+            ];
+        }
+        return $categorieDico;
+    }
+
+    public static function noteEntityToDico($note){
         $data = [
-            "nom" => $user->getId(),
-            "prenom" => $user->getPrenom(),
-            "email" => $user->getEmail(),
-            "login" => $user->getLogin(),
-            "password" => $user->getPassword(),
-            "idprofil" => $user->getIdprofil()
+            "id" => $note->getId(),
+            "titre" => $note->getTitre(),
+            "contenu" => $note->getContenu(),
+            "idCategorie" => $note->getCategorie()
         ];
         return $data;
-    } 
+    }
+    
+    public static function categorieEntityToDico($categorie){
+        $data = [
+            "id" => $categorie->getId(),
+            "libelle" => $categorie->getLibelle(),
+            "couleur" => $categorie->getCouleur()
+        ];
+        return $data;
+    }
 }
