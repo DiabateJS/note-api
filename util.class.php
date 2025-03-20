@@ -52,6 +52,52 @@ class Util {
         return $categorieDico;
     }
 
+    public static function updateCategorieDicoFromStringParams($params){
+        $tabParams = explode(";",$params);
+        $categorieDico = [
+            "id" => $tabParams[0],
+            "libelle" => $tabParams[1],
+            "couleur" => $tabParams[2]
+        ];
+        return $categorieDico;
+    }
+
+    public static function updateCategorieDicoFromTabParams($tab){
+        $categorieDico = [];
+        if (count($tab) > 1){
+            $categorieDico = [
+                "id" => $tab[0],
+                "libelle" => $tab[1],
+                "couleur" => $tab[2]
+            ];
+        }
+        return $categorieDico;
+    }
+
+    public static function updateNoteDicoFromStringParams($params){
+        $tabParams = explode(";",$params);
+        $noteDico = [
+            "id" => $tabParams[0],
+            "titre" => $tabParams[1],
+            "contenu" => $tabParams[2],
+            "idCategorie" => $tabParams[3]
+        ];
+        return $noteDico;
+    }
+
+    public static function updateNoteDicoFromTabParams($tab){
+        $noteDico = [];
+        if (count($tab) > 3){
+            $noteDico = [
+                "id" => $tab[0],
+                "titre" => $tab[1],
+                "contenu" => $tab[2],
+                "idCategorie" => $tab[3]
+            ];
+        }
+        return $noteDico;
+    }
+
     public static function noteEntityToDico($note){
         $data = [
             "id" => $note->getId(),

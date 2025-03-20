@@ -66,6 +66,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
             }
             echo json_encode($result);
         }
+        if ($method == "update"){
+            $result = new ResultData(false, null, null);
+            $tabParams =  explode(";",$params);
+            if (count($tabParams) > 2){
+                $categorieDico = Util::updateCategorieDicoFromTabParams($tabParams);
+                $stmt = $pdo->prepare(Query::$SQL_UPDATE_CATEGORIE);
+                $stmt->execute($categorieDico);
+                $result->setMessage("Categorie ".$tabParams[1]." mis a jour avec succès !");
+                http_response_code(200);
+            }else{
+                $result->setError(true);
+                $result->setMessage("Paramétres incomplets");
+                http_response_code(400);
+            }
+            echo json_encode($result);
+        }
+        if ($method == "delete"){
+            $result = new ResultData(false, null, null);
+            $categorieDico = [
+                "id" => $params
+            ];
+            $stmt = $pdo->prepare(Query::$SQL_DELETE_CATEGORIE);
+            $stmt->execute($categorieDico);
+            $result->setMessage("Categorie avec id ".$params." supprimée avec succes");
+            http_response_code(200);
+            echo json_encode($result);
+        }
     }
     if ($entity == "note"){
         if ($method == "create"){
@@ -112,6 +139,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
                 $result->setMessage("User avec id ".$params." introuvable");
                 http_response_code(404);
             }
+            echo json_encode($result);
+        }
+        if ($method == "update"){
+            $result = new ResultData(false, null, null);
+            $tabParams =  explode(";",$params);
+            if (count($tabParams) > 3){
+                $noteDico = Util::updateNoteDicoFromTabParams($tabParams);
+                $stmt = $pdo->prepare(Query::$SQL_UPDATE_NOTE);
+                $stmt->execute($noteDico);
+                $result->setMessage("Note ".$tabParams[1]." mis a jour avec succès !");
+                http_response_code(200);
+            }else{
+                $result->setError(true);
+                $result->setMessage("Paramétres incomplets");
+                http_response_code(400);
+            }
+            echo json_encode($result);          
+        }
+        if ($method == "delete"){
+            $result = new ResultData(false, null, null);
+            $noteDico = [
+                "id" => $params
+            ];
+            $stmt = $pdo->prepare(Query::$SQL_DELETE_NOTE);
+            $stmt->execute($noteDico);
+            $result->setMessage("Note avec id ".$params." supprimée avec succes");
+            http_response_code(200);
             echo json_encode($result);
         }
     }
