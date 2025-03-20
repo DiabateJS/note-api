@@ -25,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
             $tab = explode(";",$params);
             if (count($tab) > 1){
                 $categorieDico = Util::createCategorieDicoFromTabParams($tab);
-                $SQL_INSERT_CATEGORIE = "insert into categorie (libelle, couleur) values (:libelle, :couleur)";
-                $stmt = $pdo->prepare($SQL_INSERT_CATEGORIE);
+                $stmt = $pdo->prepare(Query::$SQL_INSERT_CATEGORIE);
                 $stmt->execute($categorieDico);
                 $result->setMessage("Categorie ".$tab[0]." crée");
                 http_response_code(201);
@@ -38,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         }
         if ($method == "getall"){
             $result = new ResultData(false, null, null);
-            $SQL_SELECT_CATEGORIES = "select id, libelle, couleur from categorie";
-            $all = $pdo->query($SQL_SELECT_CATEGORIES)->fetchAll();
+            $all = $pdo->query(Query::$SQL_SELECT_CATEGORIES)->fetchAll();
             $categories = [];
             foreach($all as $c){
                 $categorie = new Categorie($c["id"], $c["libelle"],$c["couleur"]);
@@ -54,8 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
             $categorieDico = [
                 "id" => $params
             ];
-            $SQL_SELECT_CATEGORIE = "select id, libelle, couleur from categorie where id = :id";
-            $stmt = $pdo->prepare($SQL_SELECT_CATEGORIE);
+            $stmt = $pdo->prepare(Query::$SQL_SELECT_CATEGORIE);
             $stmt->execute($categorieDico);
             $categorie = null;
             if ($stmt->rowCount() == 1){
