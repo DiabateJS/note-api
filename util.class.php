@@ -11,7 +11,7 @@ class Util {
             $data = [
                 "titre" => $titre,
                 "contenu" => $contenu,
-                "idCategorie" => $idCategorie
+                "id_categorie" => $idCategorie
             ];
         }
         return $data;
@@ -26,7 +26,7 @@ class Util {
             $data = [
                 "titre" => $titre,
                 "contenu" => $contenu,
-                "idCategorie" => $idCategorie
+                "id_categorie" => $idCategorie
             ];
         }
         return $data;
@@ -80,7 +80,7 @@ class Util {
             "id" => $tabParams[0],
             "titre" => $tabParams[1],
             "contenu" => $tabParams[2],
-            "idCategorie" => $tabParams[3]
+            "id_categorie" => $tabParams[3]
         ];
         return $noteDico;
     }
@@ -92,7 +92,7 @@ class Util {
                 "id" => $tab[0],
                 "titre" => $tab[1],
                 "contenu" => $tab[2],
-                "idCategorie" => $tab[3]
+                "id_categorie" => $tab[3]
             ];
         }
         return $noteDico;
@@ -103,7 +103,7 @@ class Util {
             "id" => $note->getId(),
             "titre" => $note->getTitre(),
             "contenu" => $note->getContenu(),
-            "idCategorie" => $note->getCategorie()
+            "id_categorie" => $note->getCategorie()
         ];
         return $data;
     }

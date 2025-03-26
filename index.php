@@ -11,6 +11,9 @@ header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 header('Content-Type: application/json');
 
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+];
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
     $entity = $_GET["entity"];
